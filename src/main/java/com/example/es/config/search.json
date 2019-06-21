@@ -1,0 +1,54 @@
+DELETE cmft
+
+POST cmft/fh
+{
+  "mappings":{
+    "title":{
+      "type":"text",
+      "analyzer": "ik_smart",
+      "search_analyzer": "ik_smart"
+    },
+    "content":{
+      "type":"text",
+      "analyzer": "ik_smart",
+      "search_analyzer": "ik_smart"
+    },
+    "upload_time":{
+      "type": "date",
+      "format": "strict_date_optional_time||epoch_millis"
+    }
+  }
+}
+
+
+
+GET cmft/fh/_search
+{
+  "_source": ["highlight","title","id"],
+  "query":{
+    "multi_match": {
+      "query": "中信",
+      "fields": ["title","content"]
+    }
+  },
+  "highlight": {
+    "pre_tags": ["<span class=\"red\">"],
+    "post_tags": ["</span>"],
+    "fields": {
+      "content": {},
+      "title": {}
+    }
+
+  },
+  "from": 0,
+  "size": 20
+}
+
+
+GET cmft/_analyze?pretty=true
+{
+"text": ["中信"],
+"analyzer": "ik_max_word"
+}
+
+GET cmft/fh/_search

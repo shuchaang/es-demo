@@ -1,0 +1,31 @@
+PUT http://localhost:9200/cmft
+{
+  "mappings": {
+    "idx": {
+      "properties": {
+        "id": {
+          "type": "keyword"
+        },
+        "title": {
+          "type": "text",
+          "analyzer": "ik_smart"
+        },
+        "content": {
+          "type": "text",
+          "analyzer": "ik_smart"
+        },
+        "path": {
+          "type": "keyword"
+        },
+        "create_time": {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+        },
+        "update_time": {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+        }
+      }
+    }
+  }
+}
